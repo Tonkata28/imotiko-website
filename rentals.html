@@ -411,5 +411,41 @@
         `;
         document.head.appendChild(style);
     </script>
+    <script>
+        console.log('=== DEBUG: JavaScript is running! ===');
+        
+        // Test if we can access the API
+        const API_URL = 'http://127.0.0.1:8000/api/properties/rent/';
+        console.log('Testing API:', API_URL);
+        
+        fetch(API_URL)
+          .then(response => {
+            console.log('✅ API Response Status:', response.status);
+            console.log('✅ API Response OK:', response.ok);
+            return response.json();
+          })
+          .then(data => {
+            console.log('✅ API Data received:', data);
+            console.log('✅ Number of properties:', data.count);
+            
+            // Test if we can find the properties grid
+            const grid = document.querySelector('.properties-grid');
+            console.log('✅ Properties grid found:', grid ? 'YES' : 'NO');
+            
+            if (grid) {
+              grid.innerHTML = '<div style="padding: 20px; background: green; color: white;">API WORKING! Found ' + data.count + ' properties</div>';
+            }
+          })
+          .catch(error => {
+            console.log('❌ API Error:', error);
+            console.log('❌ Error details:', error.message);
+            
+            // Check if it's a CORS error
+            if (error.message.includes('CORS') || error.message.includes('network')) {
+              console.log('❌ This looks like a CORS error - Django is blocking GitHub Pages');
+            }
+          });
+</script>
+
 </body>
 </html>
