@@ -29,7 +29,7 @@
     <section class="properties-section">
         <div class="container">
             <h2 class="section-title">Налични Имоти Под Наем</h2>
-            <h4 class="section-subtitle">Открийте идеалното място за живеене - свържете се с нас за повече детайли</h4>
+            <h4 class="section-subtitle">Открийте идеалното място за живеене - кликнете върху имот за повече детайли</h4>
             
             <div class="properties-grid">
                 <!-- Properties will be loaded dynamically -->
@@ -104,7 +104,7 @@
             return priceFormatter.format(price) + ' €/месец';
         }
 
-        // Function to create property card HTML (using template literals more efficiently)
+        // Function to create property card HTML (without contact info and description)
         function createPropertyCard(property) {
             const categoryBg = categoryTranslations[property.category] || property.category;
             const mainImage = property.main_image || 'images/property-placeholder.jpg';
@@ -114,7 +114,7 @@
             const formattedPrice = formatPrice(property.price);
 
             return `
-                <div class="property-card">
+                <div class="property-card" onclick="viewPropertyDetails(${property.id})">
                     <div class="property-image-container">
                         <img src="${mainImage}" alt="${property.title}" class="property-image" loading="lazy">
                         <div class="property-badge">ПОД НАЕМ</div>
@@ -144,19 +144,20 @@
                                 <span>${property.bathrooms} ${bathroomWord}</span>
                             </div>
                         </div>
-                        <div class="property-description">
-                            <p>${property.description}</p>
-                        </div>
-                        <div class="property-contact">
-                            <p><strong>Контакт:</strong> ${property.contact_phone}</p>
-                            <p><strong>Email:</strong> ${property.contact_email}</p>
+                        <div class="view-details-btn">
+                            <button class="details-btn">Вижте детайлите</button>
                         </div>
                     </div>
                 </div>
             `;
         }
 
-        // Optimized function to add hover effects
+        // Function to navigate to property details page
+        function viewPropertyDetails(propertyId) {
+            window.location.href = `property-details.html?id=${propertyId}&type=rent`;
+        }
+
+        // Function to add hover effects (optimized with event delegation)
         function addHoverEffects() {
             propertiesGrid.addEventListener('mouseover', function(e) {
                 const card = e.target.closest('.property-card');
@@ -222,7 +223,7 @@
 
                     // Update the count in the subtitle
                     if (subtitle) {
-                        subtitle.textContent = `Намерени ${data.count} имота под наем - свържете се с нас за повече детайли`;
+                        subtitle.textContent = `Намерени ${data.count} имота под наем - кликнете върху имот за повече детайли`;
                     }
 
                     // Add hover effects once
@@ -257,43 +258,68 @@
             loadRentalProperties();
         });
 
-        // Add CSS for the new elements (moved outside to avoid repeated creation)
-        const style = document.createElement('style');
-        style.textContent = `
-            .property-contact {
-                margin-top: 15px;
-                padding-top: 15px;
-                border-top: 1px solid #eee;
-                font-size: 14px;
-            }
-
-            .property-contact p {
-                margin: 5px 0;
-                color: #666;
-            }
-
-            .no-properties, .error-message {
-                text-align: center;
-                padding: 40px;
-                color: #666;
-                font-size: 18px;
-                grid-column: 1 / -1;
-            }
-
-            .error-message {
-                background-color: #f8f8f8;
-                border-radius: 8px;
-                border-left: 4px solid #ff6b6b;
-            }
-
-            .error-message small {
-                display: block;
-                margin-top: 10px;
-                color: #999;
-                font-size: 12px;
-            }
-        `;
-        document.head.appendChild(style);
+        // Make viewPropertyDetails global so it can be called from onclick
+        window.viewPropertyDetails = viewPropertyDetails;
     </script>
+
+    <style>
+        /* Property Card Improvements */
+        .property-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .property-card:hover {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .view-details-btn {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            text-align: center;
+        }
+
+        .details-btn {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .details-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0, 123, 255, 0.3);
+        }
+
+        /* Error and No Properties Styles */
+        .no-properties, .error-message {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-size: 18px;
+            grid-column: 1 / -1;
+        }
+
+        .error-message {
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            border-left: 4px solid #ff6b6b;
+        }
+
+        .error-message small {
+            display: block;
+            margin-top: 10px;
+            color: #999;
+            font-size: 12px;
+        }
+    </style>
 </body>
 </html>
