@@ -3,324 +3,476 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Под Наем - imotiko</title>
-    <link rel="stylesheet" href="rentals_and_sales.css">
+    <title>Налични Имоти Под Наем</title>
+    <link rel="stylesheet" href="./css/rentals_and_sales.css">
+    <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
 </head>
 <body>
-    <!-- Top Navigation -->
-    <nav class="top-nav">
-        <div class="nav-container">
-            <ul class="nav-left">
-                <li><a href="index.html">Начало</a></li>
-                <li><a href="index.html#services">Услуги</a></li>
-            </ul>
-            <a href="index.html" class="logo">
-                <span>imotiko</span>
-            </a>
-            <ul class="nav-right">
-                <li><a href="property-sales.html">Продажби</a></li>
-                <li><a href="rentals.html" class="active">Под Наем</a></li>
-                <li><a href="about.html">За Нас</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- Properties for Rent Section -->
-    <section class="properties-section">
-        <div class="container">
-            <h2 class="section-title">Налични Имоти Под Наем</h2>
-            <h4 class="section-subtitle">Открийте идеалното място за живеене - кликнете върху имот за повече детайли</h4>
-            
-            <div class="properties-grid">
-                <!-- Properties will be loaded dynamically -->
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <img src="./images/logo.png" alt="Logo">
+                    <span>ИМОТИКО</span>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">Начало</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="rentals.html" class="nav-link active">Наеми</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="sales.html" class="nav-link">Продажби</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="about.html" class="nav-link">За нас</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="contact.html" class="nav-link">Контакти</a>
+                    </li>
+                </ul>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
             </div>
-        </div>
-    </section>
+        </nav>
+    </header>
 
-    <!-- Footer -->
+    <main>
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1>Налични Имоти Под Наем</h1>
+                <p>Открийте перфектния дом за вас сред нашите качествени имоти под наем</p>
+            </div>
+        </section>
+
+        <section class="filters-section">
+            <div class="container">
+                <div class="filters-card">
+                    <form id="filtersForm" class="filters-form">
+                        <div class="filter-group">
+                            <label for="property-type">Тип имот:</label>
+                            <select id="property-type" name="property_type">
+                                <option value="">Всички</option>
+                                <option value="apartment">Апартамент</option>
+                                <option value="house">Къща</option>
+                                <option value="studio">Студио</option>
+                                <option value="office">Офис</option>
+                                <option value="commercial">Търговски</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="city">Град:</label>
+                            <select id="city" name="city">
+                                <option value="">Всички градове</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="bedrooms">Спални:</label>
+                            <select id="bedrooms" name="bedrooms">
+                                <option value="">Всички</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4+</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="min-price">Мин. цена (лв):</label>
+                            <input type="number" id="min-price" name="min_price" placeholder="0">
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="max-price">Макс. цена (лв):</label>
+                            <input type="number" id="max-price" name="max_price" placeholder="5000">
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="sort">Сортиране:</label>
+                            <select id="sort" name="ordering">
+                                <option value="-created_at">Най-нови първо</option>
+                                <option value="price">Цена: възходящо</option>
+                                <option value="-price">Цена: низходящо</option>
+                                <option value="area">Площ: възходящо</option>
+                                <option value="-area">Площ: низходящо</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-buttons">
+                            <button type="submit" class="btn btn-primary">Търси</button>
+                            <button type="button" id="clearFilters" class="btn btn-secondary">Изчисти</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section class="properties-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Резултати</h2>
+                    <div class="results-count">
+                        <span id="resultsCount">Зареждане...</span>
+                    </div>
+                </div>
+
+                <div id="loadingSpinner" class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>Зареждане на имоти...</p>
+                </div>
+
+                <div id="propertiesGrid" class="properties-grid"></div>
+
+                <div id="pagination" class="pagination-container"></div>
+
+                <div id="noResults" class="no-results" style="display: none;">
+                    <div class="no-results-content">
+                        <h3>Няма намерени имоти</h3>
+                        <p>Опитайте с различни критерии за търсене</p>
+                        <button class="btn btn-primary" onclick="clearAllFilters()">Изчисти филтрите</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>imotiko</h3>
-                    <p>Ваш доверен партньор в недвижимите имоти. Ние ви помагаме да намерите идеалния имот и да го превърнете от мечта в реалност.</p>
+        <div class="footer-container">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="./images/logo.png" alt="Logo">
+                    <span>ИМОТИКО</span>
                 </div>
-                <div class="footer-section">
-                    <h3>Навигация</h3>
-                    <p><a href="index.html#services">Услуги</a></p>
-                    <p><a href="about.html">За Нас</a></p>
-                    <p><a href="property-sales.html">Продажби</a></p>
-                    <p><a href="rentals.html">Под Наем</a></p>
-                </div>
-                <div class="footer-section">
-                    <h3>Информация за контакт</h3>
-                    <p><img src="images/email_icon.svg" alt="Email" class="footer-icon"> info@imotiko.com</p>
-                    <p><img src="images/phone_icon.svg" alt="Phone" class="footer-icon"> (555) 123-4567</p>
-                    <p><img src="images/location_icon.svg" alt="Location" class="footer-icon"> 123 Real Estate Ave, City, State 12345</p>
+                <p>Вашият надежден партньор в света на недвижимите имоти.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 imotiko. Всички права запазени.</p>
+            
+            <div class="footer-section">
+                <h3>Връзки</h3>
+                <ul>
+                    <li><a href="index.html">Начало</a></li>
+                    <li><a href="rentals.html">Наеми</a></li>
+                    <li><a href="sales.html">Продажби</a></li>
+                    <li><a href="about.html">За нас</a></li>
+                    <li><a href="contact.html">Контакти</a></li>
+                </ul>
             </div>
+            
+            <div class="footer-section">
+                <h3>Контакти</h3>
+                <ul>
+                    <li><i class="fas fa-phone"></i> +359 888 123 456</li>
+                    <li><i class="fas fa-envelope"></i> info@imotiko.bg</li>
+                    <li><i class="fas fa-map-marker-alt"></i> София, България</li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Работно време</h3>
+                <ul>
+                    <li>Пон - Пет: 9:00 - 18:00</li>
+                    <li>Събота: 10:00 - 16:00</li>
+                    <li>Неделя: Почивен ден</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 ИМОТИКО. Всички права запазени.</p>
         </div>
     </footer>
 
     <script>
         // Configuration
-        const API_BASE_URL = 'http://127.0.0.1:8000/api'; // Change this when you deploy to production
-
-        // Category translations
-        const categoryTranslations = {
-            'apartment': 'апартамент',
-            'house': 'къща',
-            'studio': 'студио',
-            'office': 'офис',
-            'commercial': 'търговски',
-            'land': 'парцел'
-        };
-
-        // Cache DOM elements
-        let propertiesGrid;
-        let subtitle;
-
-        // Function to get room word in Bulgarian
-        function getRoomWord(count) {
-            return count === 1 ? 'стая' : 'стаи';
+        const API_BASE_URL = 'http://127.0.0.1:8000/api';
+        
+        // Helper function to get proper image URL
+        function getImageUrl(imageUrl) {
+            // Your Django serializer already returns full URLs via build_absolute_uri()
+            // So we can use primary_image directly, with fallback to placeholder
+            return imageUrl || './images/placeholder-house.jpg';
         }
 
-        // Function to get bedroom word in Bulgarian
-        function getBedroomWord(count) {
-            return count === 1 ? 'спалня' : 'спални';
+        // Global variables
+        let currentPage = 1;
+        let totalPages = 1;
+        let currentFilters = {};
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCities();
+            loadProperties();
+            setupEventListeners();
+        });
+
+        // Load cities for filter dropdown
+        async function loadCities() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/stats/`);
+                const data = await response.json();
+                
+                const citySelect = document.getElementById('city');
+                citySelect.innerHTML = '<option value="">Всички градове</option>';
+                
+                data.cities.forEach(city => {
+                    const option = document.createElement('option');
+                    option.value = city;
+                    option.textContent = city;
+                    citySelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error loading cities:', error);
+            }
         }
 
-        // Function to get bathroom word in Bulgarian
-        function getBathroomWord(count) {
-            return count === 1 ? 'баня' : 'бани';
+        // Load properties from API
+        async function loadProperties(page = 1, filters = {}) {
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const propertiesGrid = document.getElementById('propertiesGrid');
+            const noResults = document.getElementById('noResults');
+            const resultsCount = document.getElementById('resultsCount');
+
+            // Show loading spinner
+            loadingSpinner.style.display = 'block';
+            propertiesGrid.innerHTML = '';
+            noResults.style.display = 'none';
+
+            try {
+                // Build query parameters
+                const params = new URLSearchParams({
+                    page: page,
+                    transaction_type: 'rent', // Only show rental properties
+                    ...filters
+                });
+
+                const response = await fetch(`${API_BASE_URL}/properties/?${params}`);
+                const data = await response.json();
+
+                // Hide loading spinner
+                loadingSpinner.style.display = 'none';
+
+                if (data.results && data.results.length > 0) {
+                    displayProperties(data.results);
+                    updateResultsCount(data.count);
+                    updatePagination(data);
+                } else {
+                    showNoResults();
+                }
+
+            } catch (error) {
+                console.error('Error loading properties:', error);
+                loadingSpinner.style.display = 'none';
+                showError('Грешка при зареждане на имотите. Моля, опитайте отново.');
+            }
         }
 
-        // Function to format price (cached formatter)
-        const priceFormatter = new Intl.NumberFormat('bg-BG');
-        function formatPrice(price) {
-            return priceFormatter.format(price) + ' €/месец';
-        }
-
-        // Function to create property card HTML (without contact info and description)
-        function createPropertyCard(property) {
-            const categoryBg = categoryTranslations[property.category] || property.category;
-            const mainImage = property.main_image || 'images/property-placeholder.jpg';
-            const roomWord = getRoomWord(property.bedrooms);
-            const bedroomWord = getBedroomWord(property.bedrooms);
-            const bathroomWord = getBathroomWord(property.bathrooms);
-            const formattedPrice = formatPrice(property.price);
-
-            return `
-                <div class="property-card" onclick="viewPropertyDetails(${property.id})">
-                    <div class="property-image-container">
-                        <img src="${mainImage}" alt="${property.title}" class="property-image" loading="lazy">
-                        <div class="property-badge">ПОД НАЕМ</div>
-                        <div class="property-price">${formattedPrice}</div>
+        // Display properties in grid
+        function displayProperties(properties) {
+            const grid = document.getElementById('propertiesGrid');
+            
+            grid.innerHTML = properties.map(property => `
+                <div class="property-card" data-property-id="${property.id}">
+                    <div class="property-image">
+                        <img src="${getImageUrl(property.primary_image)}" 
+                             alt="${property.title}"
+                             onerror="this.src='./images/placeholder-house.jpg'">
+                        ${property.is_featured ? '<div class="featured-badge">Препоръчан</div>' : ''}
                     </div>
-                    <div class="property-content">
+                    <div class="property-info">
                         <h3 class="property-title">${property.title}</h3>
                         <div class="property-location">
-                            <img src="images/location_icon.svg" alt="location" class="location-icon">
-                            <span>${property.location}</span>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>${property.address}, ${property.city}</span>
                         </div>
                         <div class="property-details">
                             <div class="detail-item">
-                                <img src="images/apartment_icon.svg" alt="area" class="detail-icon">
-                                <span>${property.area} кв. м.</span>
+                                <i class="fas fa-bed"></i>
+                                <span>${property.bedrooms} спални</span>
                             </div>
                             <div class="detail-item">
-                                <img src="images/door_icon.svg" alt="rooms" class="detail-icon">
-                                <span>${property.bedrooms} ${roomWord}</span>
+                                <i class="fas fa-bath"></i>
+                                <span>${property.bathrooms} бани</span>
                             </div>
                             <div class="detail-item">
-                                <img src="images/bed_icon.svg" alt="bedrooms" class="detail-icon">
-                                <span>${property.bedrooms} ${bedroomWord}</span>
-                            </div>
-                            <div class="detail-item">
-                                <img src="images/bathtub_icon.svg" alt="bathrooms" class="detail-icon">
-                                <span>${property.bathrooms} ${bathroomWord}</span>
+                                <i class="fas fa-ruler-combined"></i>
+                                <span>${property.area} м²</span>
                             </div>
                         </div>
-                        <div class="view-details-btn">
-                            <button class="details-btn">Вижте детайлите</button>
+                        <div class="property-price">
+                            <span class="price">${parseFloat(property.price).toLocaleString('bg-BG')} лв</span>
+                            <span class="period">/месец</span>
                         </div>
                     </div>
+                </div>
+            `).join('');
+
+            // Add click event listeners to property cards
+            document.querySelectorAll('.property-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const propertyId = this.dataset.propertyId;
+                    viewPropertyDetails(propertyId);
+                });
+            });
+        }
+
+        // View property details
+        function viewPropertyDetails(propertyId) {
+            // Redirect to property details page
+            window.location.href = `property-details.html?id=${propertyId}`;
+        }
+
+        // Update results count
+        function updateResultsCount(count) {
+            const resultsCount = document.getElementById('resultsCount');
+            resultsCount.textContent = `Намерени ${count} имота`;
+        }
+
+        // Show no results message
+        function showNoResults() {
+            const noResults = document.getElementById('noResults');
+            const resultsCount = document.getElementById('resultsCount');
+            
+            noResults.style.display = 'block';
+            resultsCount.textContent = 'Намерени 0 имота';
+        }
+
+        // Show error message
+        function showError(message) {
+            const grid = document.getElementById('propertiesGrid');
+            grid.innerHTML = `
+                <div class="error-message">
+                    <h3>Възникна грешка</h3>
+                    <p>${message}</p>
+                    <button class="btn btn-primary" onclick="loadProperties()">Опитай отново</button>
                 </div>
             `;
         }
 
-        // Function to navigate to property details page
-        function viewPropertyDetails(propertyId) {
-            window.location.href = `property-details.html?id=${propertyId}&type=rent`;
-        }
-
-        // Function to add hover effects (optimized with event delegation)
-        function addHoverEffects() {
-            propertiesGrid.addEventListener('mouseover', function(e) {
-                const card = e.target.closest('.property-card');
-                if (card) {
-                    card.style.transform = 'translateY(-5px)';
-                }
-            });
-
-            propertiesGrid.addEventListener('mouseout', function(e) {
-                const card = e.target.closest('.property-card');
-                if (card) {
-                    card.style.transform = 'translateY(0)';
-                }
-            });
-        }
-
-        // Function to fetch and display rental properties
-        async function loadRentalProperties() {
-            try {
-                console.log('Fetching rental properties...');
-
-                const response = await fetch(`${API_BASE_URL}/properties/?transaction_type=rent`, {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    }
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const data = await response.json();
-                console.log('Received data:', data);
-
-                // Fix: Check for 'results' instead of 'properties' and remove 'status' check
-                if (data.results && Array.isArray(data.results)) {
-                    if (data.results.length === 0) {
-                        propertiesGrid.innerHTML = `
-                            <div class="no-properties">
-                                <p>В момента няма налични имоти под наем.</p>
-                            </div>
-                        `;
-                        return;
-                    }
-
-                    // Use DocumentFragment for better performance
-                    const fragment = document.createDocumentFragment();
-                    const tempDiv = document.createElement('div');
-                    
-                    // Build all HTML at once - use 'results' instead of 'properties'
-                    const allHTML = data.results.map(createPropertyCard).join('');
-                    tempDiv.innerHTML = allHTML;
-                    
-                    // Move all nodes to fragment
-                    while (tempDiv.firstChild) {
-                        fragment.appendChild(tempDiv.firstChild);
-                    }
-
-                    // Clear existing static properties and add new ones
-                    propertiesGrid.innerHTML = '';
-                    propertiesGrid.appendChild(fragment);
-
-                    // Update the count in the subtitle
-                    if (subtitle) {
-                        subtitle.textContent = `Намерени ${data.count} имота под наем - кликнете върху имот за повече детайли`;
-                    }
-
-                    // Add hover effects once
-                    addHoverEffects();
-
-                    console.log(`Successfully loaded ${data.count} rental properties`);
-                } else {
-                    throw new Error('Invalid response format - expected results array');
-                }
-
-            } catch (error) {
-                console.error('Error loading rental properties:', error);
-
-                // Show error message to user
-                propertiesGrid.innerHTML = `
-                    <div class="error-message">
-                        <p>Възникна грешка при зареждането на имотите. Моля опитайте отново по-късно.</p>
-                        <p><small>Грешка: ${error.message}</small></p>
-                    </div>
-                `;
+        // Update pagination
+        function updatePagination(data) {
+            const paginationContainer = document.getElementById('pagination');
+            
+            if (!data.next && !data.previous) {
+                paginationContainer.innerHTML = '';
+                return;
             }
+
+            // Calculate current page and total pages
+            const currentPage = data.previous ? 
+                parseInt(new URL(data.previous).searchParams.get('page')) + 1 : 1;
+            
+            const totalCount = data.count;
+            const pageSize = data.results.length;
+            const totalPages = Math.ceil(totalCount / pageSize);
+
+            let paginationHTML = '<div class="pagination">';
+            
+            // Previous button
+            if (data.previous) {
+                paginationHTML += `<button class="pagination-btn" onclick="changePage(${currentPage - 1})">&laquo; Назад</button>`;
+            }
+            
+            // Page numbers
+            for (let i = Math.max(1, currentPage - 2); i <= Math.min(totalPages, currentPage + 2); i++) {
+                const activeClass = i === currentPage ? 'active' : '';
+                paginationHTML += `<button class="pagination-btn ${activeClass}" onclick="changePage(${i})">${i}</button>`;
+            }
+            
+            // Next button
+            if (data.next) {
+                paginationHTML += `<button class="pagination-btn" onclick="changePage(${currentPage + 1})">Напред &raquo;</button>`;
+            }
+            
+            paginationHTML += '</div>';
+            paginationContainer.innerHTML = paginationHTML;
         }
 
-        // Load properties when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Page loaded, fetching rental properties...');
+        // Change page
+        function changePage(page) {
+            currentPage = page;
+            loadProperties(page, currentFilters);
             
-            // Cache DOM elements
-            propertiesGrid = document.querySelector('.properties-grid');
-            subtitle = document.querySelector('.section-subtitle');
-            
-            loadRentalProperties();
-        });
+            // Scroll to top of properties section
+            document.querySelector('.properties-section').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
 
-        // Make viewPropertyDetails global so it can be called from onclick
-        window.viewPropertyDetails = viewPropertyDetails;
+        // Setup event listeners
+        function setupEventListeners() {
+            // Filters form
+            const filtersForm = document.getElementById('filtersForm');
+            filtersForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                applyFilters();
+            });
+
+            // Clear filters button
+            const clearFiltersBtn = document.getElementById('clearFilters');
+            clearFiltersBtn.addEventListener('click', clearAllFilters);
+
+            // Mobile menu toggle
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+
+            hamburger.addEventListener('click', function() {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+
+            // Close mobile menu when clicking on a link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function() {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+        }
+
+        // Apply filters
+        function applyFilters() {
+            const formData = new FormData(document.getElementById('filtersForm'));
+            const filters = {};
+
+            // Convert FormData to object, excluding empty values
+            for (let [key, value] of formData.entries()) {
+                if (value && value.trim() !== '') {
+                    filters[key] = value.trim();
+                }
+            }
+
+            currentFilters = filters;
+            currentPage = 1;
+            loadProperties(1, filters);
+        }
+
+        // Clear all filters
+        function clearAllFilters() {
+            document.getElementById('filtersForm').reset();
+            currentFilters = {};
+            currentPage = 1;
+            loadProperties();
+        }
+
+        // Format price
+        function formatPrice(price) {
+            return parseFloat(price).toLocaleString('bg-BG');
+        }
+
+        // Format area
+        function formatArea(area) {
+            return parseFloat(area).toFixed(0);
+        }
     </script>
-
-    <style>
-        /* Property Card Improvements */
-        .property-card {
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .property-card:hover {
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-        }
-
-        .view-details-btn {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
-            text-align: center;
-        }
-
-        .details-btn {
-            background: linear-gradient(135deg, #007bff, #0056b3);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .details-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 15px rgba(0, 123, 255, 0.3);
-        }
-
-        /* Error and No Properties Styles */
-        .no-properties, .error-message {
-            text-align: center;
-            padding: 40px;
-            color: #666;
-            font-size: 18px;
-            grid-column: 1 / -1;
-        }
-
-        .error-message {
-            background-color: #f8f8f8;
-            border-radius: 8px;
-            border-left: 4px solid #ff6b6b;
-        }
-
-        .error-message small {
-            display: block;
-            margin-top: 10px;
-            color: #999;
-            font-size: 12px;
-        }
-    </style>
 </body>
 </html>
