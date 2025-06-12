@@ -194,8 +194,9 @@
                 const data = await response.json();
                 console.log('Received data:', data);
 
-                if (data.status === 'success' && data.properties) {
-                    if (data.properties.length === 0) {
+                // Fix: Check for 'results' instead of 'properties' and remove 'status' check
+                if (data.results && Array.isArray(data.results)) {
+                    if (data.results.length === 0) {
                         propertiesGrid.innerHTML = `
                             <div class="no-properties">
                                 <p>В момента няма налични имоти под наем.</p>
@@ -208,8 +209,8 @@
                     const fragment = document.createDocumentFragment();
                     const tempDiv = document.createElement('div');
                     
-                    // Build all HTML at once
-                    const allHTML = data.properties.map(createPropertyCard).join('');
+                    // Build all HTML at once - use 'results' instead of 'properties'
+                    const allHTML = data.results.map(createPropertyCard).join('');
                     tempDiv.innerHTML = allHTML;
                     
                     // Move all nodes to fragment
@@ -231,7 +232,7 @@
 
                     console.log(`Successfully loaded ${data.count} rental properties`);
                 } else {
-                    throw new Error('Invalid response format');
+                    throw new Error('Invalid response format - expected results array');
                 }
 
             } catch (error) {
