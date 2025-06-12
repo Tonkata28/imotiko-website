@@ -29,7 +29,7 @@
     <section class="properties-section">
         <div class="container">
             <h2 class="section-title">Налични Имоти Под Наем</h2>
-            <h4 class="section-subtitle">Открийте идеалното място за живеене - кликнете върху имот за повече детайли</h4>
+            <h4 class="section-subtitle">За повече информация се свържете с нашия екип</h4>
             
             <div class="properties-grid">
                 <!-- Properties will be loaded dynamically -->
@@ -104,7 +104,32 @@
             return priceFormatter.format(price) + ' €/месец';
         }
 
-        // Function to create property card HTML (without contact info and description)
+        function getLocationDisplay(property) {
+            // Handle different possible location data structures
+            if (!property.location) {
+                return 'Локация не е посочена';
+            }
+            
+            // If location is a string
+            if (typeof property.location === 'string') {
+                return property.location;
+            }
+            
+            // If location is an object with various possible properties
+            if (typeof property.location === 'object') {
+                // Try different common property names
+                return property.location.name || 
+                    property.location.address || 
+                    property.location.city || 
+                    property.location.area ||
+                    property.location.display_name ||
+                    'Локация не е посочена';
+            }
+            
+            return 'Локация не е посочена';
+        }
+
+        // Updated createPropertyCard function for rentals.html
         function createPropertyCard(property) {
             const categoryBg = categoryTranslations[property.category] || property.category;
             const mainImage = property.main_image || 'images/property-placeholder.jpg';
@@ -112,6 +137,7 @@
             const bedroomWord = getBedroomWord(property.bedrooms);
             const bathroomWord = getBathroomWord(property.bathrooms);
             const formattedPrice = formatPrice(property.price);
+            const locationDisplay = getLocationDisplay(property); // Use the utility function
 
             return `
                 <div class="property-card" onclick="viewPropertyDetails(${property.id})">
@@ -124,7 +150,7 @@
                         <h3 class="property-title">${property.title}</h3>
                         <div class="property-location">
                             <img src="images/location_icon.svg" alt="location" class="location-icon">
-                            <span>${property.location}</span>
+                            <span>${locationDisplay}</span>
                         </div>
                         <div class="property-details">
                             <div class="detail-item">
@@ -144,8 +170,77 @@
                                 <span>${property.bathrooms} ${bathroomWord}</span>
                             </div>
                         </div>
-                        <div class="view-details-btn">
-                            <button class="details-btn">Вижте детайлите</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getLocationDisplay(property) {
+            // Handle different possible location data structures
+            if (!property.location) {
+                return 'Локация не е посочена';
+            }
+            
+            // If location is a string
+            if (typeof property.location === 'string') {
+                return property.location;
+            }
+            
+            // If location is an object with various possible properties
+            if (typeof property.location === 'object') {
+                // Try different common property names
+                return property.location.name || 
+                    property.location.address || 
+                    property.location.city || 
+                    property.location.area ||
+                    property.location.display_name ||
+                    'Локация не е посочена';
+            }
+            
+            return 'Локация не е посочена';
+        }
+
+
+        // Function to create property card HTML (matching property sales style, without description)
+        function createPropertyCard(property) {
+            const categoryBg = categoryTranslations[property.category] || property.category;
+            const mainImage = property.main_image || 'images/property-placeholder.jpg';
+            const roomWord = getRoomWord(property.bedrooms);
+            const bedroomWord = getBedroomWord(property.bedrooms);
+            const bathroomWord = getBathroomWord(property.bathrooms);
+            const formattedPrice = formatPrice(property.price);
+            const locationDisplay = getLocationDisplay(property); // Use the utility function
+
+            return `
+                <div class="property-card" onclick="viewPropertyDetails(${property.id})">
+                    <div class="property-image-container">
+                        <img src="${mainImage}" alt="${property.title}" class="property-image" loading="lazy">
+                        <div class="property-badge">ПОД НАЕМ</div>
+                        <div class="property-price">${formattedPrice}</div>
+                    </div>
+                    <div class="property-content">
+                        <h3 class="property-title">${property.title}</h3>
+                        <div class="property-location">
+                            <img src="images/location_icon.svg" alt="location" class="location-icon">
+                            <span>${locationDisplay}</span>
+                        </div>
+                        <div class="property-details">
+                            <div class="detail-item">
+                                <img src="images/apartment_icon.svg" alt="area" class="detail-icon">
+                                <span>${property.area} кв. м.</span>
+                            </div>
+                            <div class="detail-item">
+                                <img src="images/door_icon.svg" alt="rooms" class="detail-icon">
+                                <span>${property.bedrooms} ${roomWord}</span>
+                            </div>
+                            <div class="detail-item">
+                                <img src="images/bed_icon.svg" alt="bedrooms" class="detail-icon">
+                                <span>${property.bedrooms} ${bedroomWord}</span>
+                            </div>
+                            <div class="detail-item">
+                                <img src="images/bathtub_icon.svg" alt="bathrooms" class="detail-icon">
+                                <span>${property.bathrooms} ${bathroomWord}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -157,20 +252,30 @@
             window.location.href = `property-details.html?id=${propertyId}&type=rent`;
         }
 
-        // Function to add hover effects (optimized with event delegation)
-        function addHoverEffects() {
-            propertiesGrid.addEventListener('mouseover', function(e) {
-                const card = e.target.closest('.property-card');
-                if (card) {
-                    card.style.transform = 'translateY(-5px)';
+        // Function to add hover effects using smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                 }
             });
+        });
 
-            propertiesGrid.addEventListener('mouseout', function(e) {
-                const card = e.target.closest('.property-card');
-                if (card) {
-                    card.style.transform = 'translateY(0)';
-                }
+        // Property card hover effects
+        function addHoverEffects() {
+            document.querySelectorAll('.property-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px)';
+                });
+
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
             });
         }
 
@@ -193,8 +298,13 @@
 
                 const data = await response.json();
                 console.log('Received data:', data);
+                
+                // Debug: Log first property to see structure
+                if (data.results && data.results.length > 0) {
+                    console.log('First property structure:', data.results[0]);
+                    console.log('Location data:', data.results[0].location);
+                }
 
-                // Fix: Check for 'results' instead of 'properties' and remove 'status' check
                 if (data.results && Array.isArray(data.results)) {
                     if (data.results.length === 0) {
                         propertiesGrid.innerHTML = `
@@ -209,7 +319,7 @@
                     const fragment = document.createDocumentFragment();
                     const tempDiv = document.createElement('div');
                     
-                    // Build all HTML at once - use 'results' instead of 'properties'
+                    // Build all HTML at once
                     const allHTML = data.results.map(createPropertyCard).join('');
                     tempDiv.innerHTML = allHTML;
                     
@@ -224,7 +334,7 @@
 
                     // Update the count in the subtitle
                     if (subtitle) {
-                        subtitle.textContent = `Намерени ${data.count} имота под наем - кликнете върху имот за повече детайли`;
+                        subtitle.textContent = `За повече информация се свържете с нашия екип`;
                     }
 
                     // Add hover effects once
