@@ -139,6 +139,7 @@ body {
     position: relative;
     border: 1px solid rgba(0, 0, 0, 0.05);
     cursor: pointer;
+    min-height: 600px;
 }
 
 .property-card:hover {
@@ -216,9 +217,10 @@ body {
 }
 
 .location-icon {
-    width: 18px;
-    height: 18px;
-    color: #C41E3A;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    fill: #C41E3A;
 }
 
 .property-details {
@@ -242,10 +244,18 @@ body {
 }
 
 .detail-icon {
-    width: 20px;
-    height: 20px;
-    color: #C41E3A;
+    width: 16px;
+    height: 16px;
     flex-shrink: 0;
+    fill: #C41E3A;
+}
+
+/* SVG icon fixes */
+.detail-icon svg,
+.location-icon svg {
+    width: 16px;
+    height: 16px;
+    fill: #C41E3A;
 }
 
 /* Remove these old compact styles */
@@ -425,6 +435,7 @@ footer {
     .property-card {
         max-width: 400px;
         margin: 0 auto;
+        min-height: 550px;
     }
 
     .property-details {
@@ -471,5 +482,9 @@ footer {
 
     .section-subtitle {
         font-size: 1rem;
+    }
+
+    .property-card {
+        min-height: 500px;
     }
 }
