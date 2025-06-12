@@ -179,7 +179,7 @@
             try {
                 console.log('Fetching rental properties...');
 
-                const response = await fetch(`${API_BASE_URL}/properties/rent/`, {
+                const response = await fetch(`${API_BASE_URL}/properties/?transaction_type=rent`, {
                     method: 'GET',
                     headers: {
                         'Accept': 'application/json',
