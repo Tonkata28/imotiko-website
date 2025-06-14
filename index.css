@@ -1,4 +1,6 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@300;400;500;600;700&family=Lora:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -6,10 +8,10 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Lora', serif;
     line-height: 1.6;
-    color: #333;
-    background-color: white;
+    color: #362017;
+    background-color: #F1EADA;
 }
 
 .container {
@@ -51,10 +53,10 @@ body {
     display: flex;
     align-items: center;
     font-size: 1.8rem;
-    font-weight: bold;
-    color: white;
+    font-weight: 600;
+    color: #F1EADA;
     text-decoration: none;
-    font-family: 'Georgia', serif;
+    font-family: 'Cinzel', serif;
     letter-spacing: 1px;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
@@ -66,16 +68,17 @@ body {
 }
 
 .nav-left a, .nav-right a {
-    color: white;
+    color: #F1EADA;
     text-decoration: none;
     font-weight: 500;
+    font-family: 'Lora', serif;
     transition: color 0.3s ease;
     position: relative;
     text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
 }
 
 .nav-left a:hover, .nav-right a:hover {
-    color: #C41E3A;
+    color: #362017;
 }
 
 .nav-left a::after, .nav-right a::after {
@@ -85,7 +88,7 @@ body {
     left: 0;
     width: 0;
     height: 2px;
-    background: #C41E3A;
+    background: #362017;
     transition: width 0.3s ease;
 }
 
@@ -121,7 +124,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(45deg, rgba(0,0,0,0.4), rgba(102,126,234,0.3));
+    background: linear-gradient(45deg, rgba(54,32,23,0.4), rgba(54,32,23,0.3));
     z-index: -1;
 }
 
@@ -138,8 +141,10 @@ body {
     margin-bottom: 1.5rem;
     text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
     animation: fadeInUp 1s ease;
-    font-weight: 700;
+    font-weight: 300;
+    font-family: 'Cinzel', serif;
     line-height: 1.1;
+    letter-spacing: 1px;
 }
 
 .hero-content .subtitle {
@@ -148,7 +153,8 @@ body {
     opacity: 0.95;
     animation: fadeInUp 1s ease 0.2s both;
     color: #f8f9fa;
-    font-weight: 300;
+    font-weight: 400;
+    font-family: 'Lora', serif;
 }
 
 .hero-content p {
@@ -160,22 +166,24 @@ body {
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
+    font-family: 'Lora', serif;
 }
 
 .cta-button {
-    background: linear-gradient(45deg, #C41E3A, #8B0000);
+    background: linear-gradient(45deg, #362017, #2B1A10);
     color: white;
     padding: 1.2rem 2.5rem;
     border: none;
     border-radius: 50px;
     font-size: 1.2rem;
     font-weight: 600;
+    font-family: 'Cinzel', serif;
     cursor: pointer;
     transition: all 0.3s ease;
     text-decoration: none;
     display: inline-block;
     animation: fadeInUp 1s ease 0.6s both;
-    box-shadow: 0 10px 30px rgba(196,30,58,0.4);
+    box-shadow: 0 10px 30px rgba(54,32,23,0.4);
     text-transform: uppercase;
     letter-spacing: 1px;
     margin: 0 1rem 1rem 0;
@@ -183,7 +191,7 @@ body {
 
 .cta-button:hover {
     transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(196,30,58,0.5);
+    box-shadow: 0 15px 40px rgba(54,32,23,0.5);
 }
 
 .cta-button.secondary {
@@ -195,7 +203,7 @@ body {
 
 .cta-button.secondary:hover {
     background: white;
-    color: #333;
+    color: #362017;
     box-shadow: 0 15px 40px rgba(255,255,255,0.3);
 }
 
@@ -234,13 +242,13 @@ body {
 
 /* CTA Section */
 .cta-section {
-    background: linear-gradient(145deg, rgba(196,30,58,0.1), rgba(139,0,0,0.05));
+    background: linear-gradient(145deg, rgba(54,32,23,0.1), rgba(54,32,23,0.05));
     border-radius: 10px;
     padding: 2.5rem;
     text-align: center;
     margin: 2rem auto;
     max-width: 1200px;
-    border: 1px solid rgba(196,30,58,0.2);
+    border: 1px solid rgba(54,32,23,0.2);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     position: relative;
     overflow: hidden;
@@ -253,55 +261,59 @@ body {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle, rgba(196,30,58,0.05) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(54,32,23,0.05) 0%, transparent 70%);
     animation: pulse 10s infinite linear;
     z-index: 0;
 }
 
 .cta-section h2 {
-    font-family: 'Segoe UI', sans-serif;
-    color: #333;
+    font-family: 'Cinzel', serif;
+    color: #362017;
     position: relative;
     z-index: 1;
     font-size: 2.5rem;
     margin-bottom: 1rem;
+    font-weight: 300;
+    letter-spacing: 1px;
 }
 
 .cta-section p {
     position: relative;
     z-index: 1;
     font-size: 1.2rem;
-    color: #555;
+    color: #6B5B4F;
     margin-bottom: 2rem;
+    font-family: 'Lora', serif;
 }
 
 .cta-main-button {
     display: inline-block;
-    background: linear-gradient(to right, #C41E3A, #8B0000);
+    background: linear-gradient(to right, #362017, #2B1A10);
     color: white;
     padding: 0.8rem 1.8rem;
     border-radius: 30px;
     text-decoration: none;
     font-weight: 600;
+    font-family: 'Cinzel', serif;
     margin-top: 1rem;
     transition: all 0.3s ease;
     position: relative;
     z-index: 1;
     letter-spacing: 1px;
-    box-shadow: 0 4px 15px rgba(196,30,58,0.3);
+    box-shadow: 0 4px 15px rgba(54,32,23,0.3);
     text-transform: uppercase;
     font-size: 0.9rem;
 }
 
 .cta-main-button:hover {
     transform: scale(1.05) translateY(-2px);
-    box-shadow: 0 6px 20px rgba(196,30,58,0.4);
+    box-shadow: 0 6px 20px rgba(54,32,23,0.4);
 }
 
 /* Services Section */
 .services {
     padding: 5rem 0;
-    background: white;
+    background: #F1EADA;
     position: relative;
     overflow: hidden;
 }
@@ -310,20 +322,24 @@ body {
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 3rem;
-    color: #333;
+    color: #362017;
     position: relative;
     z-index: 2;
+    font-family: 'Cinzel', serif;
+    font-weight: 300;
+    letter-spacing: 1px;
+    text-shadow: 0 0 20px rgba(54, 32, 23, 0.3);
 }
 
 .section-title::after {
     content: '';
     width: 60px;
     height: 4px;
-    background: linear-gradient(45deg, #C41E3A, #8B0000);
+    background: linear-gradient(45deg, #362017, #2B1A10);
     display: block;
     margin: 1rem auto;
     border-radius: 2px;
-    box-shadow: 0 0 10px rgba(196,30,58,0.3);
+    box-shadow: 0 0 10px rgba(54,32,23,0.3);
 }
 
 .services-grid {
@@ -347,15 +363,15 @@ body {
 .service-button {
     display: block;
     text-decoration: none;
-    background: white;
+    background: linear-gradient(145deg, #FFFFFF, #F7F3E9);
     border-radius: 15px;
     padding: 1.5rem 1rem;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid rgba(102,126,234,0.1);
+    border: 1px solid rgba(54,32,23,0.1);
     position: relative;
     overflow: hidden;
-    color: #333;
+    color: #362017;
     text-align: center;
 }
 
@@ -366,7 +382,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(45deg, transparent 25%, rgba(102,126,234,0.02) 50%, transparent 75%);
+    background: linear-gradient(45deg, transparent 25%, rgba(54,32,23,0.02) 50%, transparent 75%);
     background-size: 200% 200%;
     animation: shine 5s infinite linear;
     z-index: 0;
@@ -374,11 +390,11 @@ body {
 
 .service-button:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 40px rgba(196,30,58,0.15);
+    box-shadow: 0 15px 40px rgba(54,32,23,0.15);
 }
 
 .service-icon {
-    width: 100px;  /* or whatever size you prefer */
+    width: 100px;
     height: 100px;
     margin-bottom: 1rem;
     display: block;
@@ -389,20 +405,23 @@ body {
 }
 
 .service-title {
-    color: #C41E3A;
+    color: #362017;
     margin-bottom: 1rem;
     font-size: 1.3rem;
     padding-bottom: 0.5rem;
-    border-bottom: 2px solid rgba(196,30,58,0.3);
-    font-family: 'Segoe UI', sans-serif;
+    border-bottom: 2px solid rgba(54,32,23,0.3);
+    font-family: 'Cinzel', serif;
+    font-weight: 400;
     position: relative;
     z-index: 1;
+    letter-spacing: 0.5px;
 }
 
 .service-description {
-    color: #666;
+    color: #6B5B4F;
     line-height: 1.6;
     font-size: 0.95rem;
+    font-family: 'Lora', serif;
     position: relative;
     z-index: 1;
     margin-bottom: 1.5rem;
@@ -410,13 +429,14 @@ body {
 }
 
 .service-action-button {
-    background: linear-gradient(45deg, #C41E3A, #8B0000);
+    background: linear-gradient(45deg, #362017, #2B1A10);
     color: white;
     padding: 0.7rem 1.5rem;
     border: none;
     border-radius: 25px;
     font-size: 0.9rem;
     font-weight: 600;
+    font-family: 'Cinzel', serif;
     cursor: pointer;
     transition: all 0.3s ease;
     text-decoration: none;
@@ -425,18 +445,18 @@ body {
     z-index: 1;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    box-shadow: 0 4px 15px rgba(196,30,58,0.3);
+    box-shadow: 0 4px 15px rgba(54,32,23,0.3);
 }
 
 .service-action-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(196,30,58,0.4);
+    box-shadow: 0 6px 20px rgba(54,32,23,0.4);
 }
 
 /* Top Offers Section */
 .top-offers {
     padding: 5rem 0;
-    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    background: linear-gradient(135deg, #E8DCC6, #DDD0B4);
     position: relative;
     overflow: hidden;
 }
@@ -449,20 +469,21 @@ body {
 }
 
 .offer-card {
-    background: white;
+    background: linear-gradient(145deg, #FFFFFF, #F7F3E9);
     border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 20px rgba(54, 32, 23, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
     text-decoration: none;
     color: inherit;
     display: block;
+    border: 1px solid #D4C4A8;
 }
 
 .offer-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 15px 30px rgba(54, 32, 23, 0.15);
 }
 
 .offer-image-container {
@@ -487,12 +508,13 @@ body {
     position: absolute;
     top: 15px;
     left: 15px;
-    background: #dc3545;
+    background: #362017;
     color: white;
     padding: 5px 12px;
     border-radius: 4px;
     font-size: 0.8rem;
     font-weight: bold;
+    font-family: 'Cinzel', serif;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -503,10 +525,12 @@ body {
 
 .offer-title {
     font-size: 1.3rem;
-    color: #333;
+    color: #362017;
     margin-bottom: 1rem;
-    font-weight: 600;
+    font-weight: 400;
+    font-family: 'Cinzel', serif;
     line-height: 1.3;
+    letter-spacing: 0.5px;
 }
 
 .offer-details {
@@ -521,9 +545,9 @@ body {
     gap: 0.4rem;
     position: relative;
     padding: 0.6rem;
-    background: #f8f9fa;
+    background: #E8DCC6;
     border-radius: 8px;
-    border: 1px solid #e9ecef;
+    border: 1px solid #D4C4A8;
     margin-top: -0.5rem;
     margin-right: 0.5rem;
     width: calc(65% - 0.5rem);
@@ -537,7 +561,7 @@ body {
     transform: translateX(-50%);
     width: 1px;
     height: 100%;
-    background-color: #ddd;
+    background-color: #D4C4A8;
     z-index: 1;
 }
 
@@ -546,8 +570,9 @@ body {
     align-items: center;
     justify-content: flex-start;
     gap: 0.4rem;
-    color: #666;
+    color: #6B5B4F;
     font-size: 0.85rem;
+    font-family: 'Lora', serif;
     white-space: nowrap;
     position: relative;
     z-index: 2;
@@ -558,15 +583,16 @@ body {
 .offer-detail-icon {
     width: 18px;
     height: 18px;
-    color: #dc3545;
+    color: #362017;
     flex-shrink: 0;
 }
 
 .offer-price {
     font-size: 0.9rem;
     font-weight: bold;
+    font-family: 'Cinzel', serif;
     color: white;
-    background: #000000;
+    background: #362017;
     padding: 0.5rem 0.8rem;
     border-radius: 6px;
     position: absolute;
@@ -600,7 +626,7 @@ body {
         transform: translateX(-50%);
         width: 1px;
         height: 100%;
-        background-color: #ddd;
+        background-color: #D4C4A8;
     }
 
     .offer-detail {
@@ -620,9 +646,10 @@ body {
 
 /* Footer */
 footer {
-    background: linear-gradient(135deg, #2c3e50, #34495e);
-    color: white;
+    background: linear-gradient(135deg, #E8DCC6, #DDD0B4);
+    color: #362017;
     padding: 3rem 0 1rem;
+    border-top: 1px solid #D4C4A8;
 }
 
 .footer-content {
@@ -634,17 +661,22 @@ footer {
 
 .footer-section h3 {
     margin-bottom: 1rem;
-    color: #C41E3A;
+    color: #362017;
+    font-family: 'Cinzel', serif;
+    font-weight: 400;
+    text-shadow: 0 0 10px rgba(54, 32, 23, 0.3);
 }
 
 .footer-section p, .footer-section a {
-    color: #bdc3c7;
+    color: #6B5B4F;
     text-decoration: none;
+    font-family: 'Lora', serif;
     line-height: 1.8;
+    transition: color 0.3s ease;
 }
 
 .footer-section a:hover {
-    color: #C41E3A;
+    color: #362017;
 }
 
 .footer-icon {
@@ -652,14 +684,15 @@ footer {
     height: 19px;
     margin-right: 9px;
     vertical-align: middle;
-    filter: brightness(0) invert(1);
+    filter: brightness(0.7) sepia(1) hue-rotate(20deg);
 }
 
 .footer-bottom {
     text-align: center;
     padding-top: 2rem;
-    border-top: 1px solid #34495e;
-    color: #95a5a6;
+    border-top: 1px solid #D4C4A8;
+    color: #8B7355;
+    font-family: 'Lora', serif;
 }
 
 /* Animations */
@@ -727,6 +760,15 @@ footer {
         font-size: 16px;
         bottom: 15px;
         right: 15px;
+    }
+
+    .section-title {
+        font-size: 2.2rem;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
     }
 }
 
